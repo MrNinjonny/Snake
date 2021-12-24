@@ -72,7 +72,6 @@ def game_loop():
             head_y = 0
         elif head_y < 0:
             head_y = window_height - 1
-            game_over = True
 
         head_x += head_x_change
         head_y += head_y_change
