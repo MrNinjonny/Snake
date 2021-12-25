@@ -1,5 +1,5 @@
 import pygame
-
+import random
 pygame.init()
 
 window_width = 800
@@ -11,7 +11,7 @@ black = (0, 0, 0)
 red = (255, 0, 0)
 
 screen = pygame.display.set_mode(window_size)
-pygame.display.set_caption('Snake Game')
+pygame.display.set_caption('Snake')
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 25)
 
@@ -31,6 +31,9 @@ def game_loop():
     head_x_change = 0
     head_y_change = 0
 
+    rand_apple_x = random.randrange(0, window_width - 20)
+    rand_apple_y = random.randrange(0, window_height - 20)
+    
     while not game_exit:
         while game_over:
             screen.fill(white)
@@ -77,6 +80,7 @@ def game_loop():
         head_y += head_y_change
 
         screen.fill(white)
+        pygame.draw.rect(screen, red, [rand_apple_x, rand_apple_y, 20, 20])
         pygame.draw.rect(screen, black, [head_x, head_y, 20, 20])
         pygame.display.update()
         clock.tick(difficulty)
