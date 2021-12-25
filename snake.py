@@ -31,8 +31,8 @@ def game_loop():
     head_x_change = 0
     head_y_change = 0
 
-    rand_apple_x = random.randrange(0, window_width - 20)
-    rand_apple_y = random.randrange(0, window_height - 20)
+    rand_apple_x = round(random.randrange(0, window_width - 20)/20.0) * 20.0
+    rand_apple_y = round(random.randrange(0, window_height - 20)/20.0) * 20.0
     
     while not game_exit:
         while game_over:
@@ -83,6 +83,10 @@ def game_loop():
         pygame.draw.rect(screen, red, [rand_apple_x, rand_apple_y, 20, 20])
         pygame.draw.rect(screen, black, [head_x, head_y, 20, 20])
         pygame.display.update()
+
+        if head_x == rand_apple_x and head_y == rand_apple_y:
+            print("eat")
+
         clock.tick(difficulty)
 
     pygame.quit()
