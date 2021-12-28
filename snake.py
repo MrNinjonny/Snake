@@ -25,14 +25,15 @@ def game_loop():
     game_exit = False
     game_over = False
     difficulty = 10
+    block_size = 20
 
     head_x = window_width / 2
     head_y = window_height / 2
     head_x_change = 0
     head_y_change = 0
 
-    rand_apple_x = round(random.randrange(0, window_width - 20)/20.0) * 20.0
-    rand_apple_y = round(random.randrange(0, window_height - 20)/20.0) * 20.0
+    rand_apple_x = round(random.randrange(0, window_width - block_size)/block_size) * block_size
+    rand_apple_y = round(random.randrange(0, window_height - block_size)/block_size) * block_size
     
     while not game_exit:
         while game_over:
@@ -55,16 +56,16 @@ def game_loop():
                 game_exit = True
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    head_x_change = -20
+                    head_x_change = -block_size
                     head_y_change = 0
                 elif event.key == pygame.K_RIGHT:
-                    head_x_change = 20
+                    head_x_change = block_size
                     head_y_change = 0
                 elif event.key == pygame.K_UP:
-                    head_y_change = -20
+                    head_y_change = -block_size
                     head_x_change = 0
                 elif event.key == pygame.K_DOWN:
-                    head_y_change = 20
+                    head_y_change = block_size
                     head_x_change = 0
 
         if head_x >= window_width:
@@ -80,8 +81,8 @@ def game_loop():
         head_y += head_y_change
 
         screen.fill(white)
-        pygame.draw.rect(screen, red, [rand_apple_x, rand_apple_y, 20, 20])
-        pygame.draw.rect(screen, black, [head_x, head_y, 20, 20])
+        pygame.draw.rect(screen, red, [rand_apple_x, rand_apple_y, block_size, block_size])
+        pygame.draw.rect(screen, black, [head_x, head_y, block_size, block_size])
         pygame.display.update()
 
         if head_x == rand_apple_x and head_y == rand_apple_y:
