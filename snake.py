@@ -9,6 +9,7 @@ window_size = (window_width, window_height)
 white = (255, 255, 255)
 black = (0, 0, 0)
 red = (255, 0, 0)
+green = (0, 155, 0)
 
 screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption('Snake')
@@ -68,25 +69,26 @@ def game_loop():
                     head_y_change = block_size
                     head_x_change = 0
 
-        if head_x >= window_width:
-            head_x = 0
+        if head_x > window_width:
+            head_x = -block_size
         elif head_x < 0:
-            head_x = window_width - 1
-        elif head_y >= window_height:
-            head_y = 0
+            head_x = window_width
+        elif head_y > window_height:
+            head_y = -block_size
         elif head_y < 0:
-            head_y = window_height - 1
+            head_y = window_height
 
         head_x += head_x_change
         head_y += head_y_change
 
         screen.fill(white)
         pygame.draw.rect(screen, red, [rand_apple_x, rand_apple_y, block_size, block_size])
-        pygame.draw.rect(screen, black, [head_x, head_y, block_size, block_size])
+        pygame.draw.rect(screen, green, [head_x, head_y, block_size, block_size])
         pygame.display.update()
 
         if head_x == rand_apple_x and head_y == rand_apple_y:
-            print("eat")
+            rand_apple_x = round(random.randrange(0, window_width - block_size)/block_size) * block_size
+            rand_apple_y = round(random.randrange(0, window_height - block_size)/block_size) * block_size
 
         clock.tick(difficulty)
 
