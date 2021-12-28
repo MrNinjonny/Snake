@@ -16,11 +16,13 @@ pygame.display.set_caption('Snake')
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 25)
 
+def snake(snake_list, block_size):
+    for XnY in snake_list:
+        pygame.draw.rect(screen, green, [XnY[0], XnY[1], block_size, block_size])
 
 def massage_to_screnn(msg, color):
     screen_text = font.render(msg, True, color)
     screen.blit(screen_text, [window_width / 2, window_height / 2])
-
 
 def game_loop():
     game_exit = False
@@ -32,6 +34,9 @@ def game_loop():
     head_y = window_height / 2
     head_x_change = 0
     head_y_change = 0
+
+    snake_list = []
+    snake_lenght = 1
 
     rand_apple_x = round(random.randrange(0, window_width - block_size)/block_size) * block_size
     rand_apple_y = round(random.randrange(0, window_height - block_size)/block_size) * block_size
@@ -83,7 +88,15 @@ def game_loop():
 
         screen.fill(white)
         pygame.draw.rect(screen, red, [rand_apple_x, rand_apple_y, block_size, block_size])
-        pygame.draw.rect(screen, green, [head_x, head_y, block_size, block_size])
+
+        
+        snake_head = []
+        snake_head.append(head_x)
+        snake_head.append(head_y)
+        snake_list.append(snake_head)
+        if len(snake_list) > snake_lenght:
+            del snake_list[0]
+        snake(snake_list, block_size)
         pygame.display.update()
 
         if head_x == rand_apple_x and head_y == rand_apple_y:
