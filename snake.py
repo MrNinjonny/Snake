@@ -87,7 +87,8 @@ def game_loop():
         head_y += head_y_change
 
         screen.fill(white)
-        pygame.draw.rect(screen, red, [rand_apple_x, rand_apple_y, block_size, block_size])
+        apple_thickness = 30
+        pygame.draw.rect(screen, red, [rand_apple_x, rand_apple_y, apple_thickness, apple_thickness])
 
         
         snake_head = []
@@ -96,13 +97,24 @@ def game_loop():
         snake_list.append(snake_head)
         if len(snake_list) > snake_lenght:
             del snake_list[0]
+
+        for XnY in snake_list[:-1]:
+            if XnY == snake_head:
+                game_over = True
+
         snake(snake_list, block_size)
         pygame.display.update()
-
+        """"
         if head_x == rand_apple_x and head_y == rand_apple_y:
             rand_apple_x = round(random.randrange(0, window_width - block_size)/block_size) * block_size
             rand_apple_y = round(random.randrange(0, window_height - block_size)/block_size) * block_size
-
+            snake_lenght += 1
+        """
+        if head_x >= rand_apple_x and head_x <= rand_apple_x + apple_thickness:
+            if head_y >= rand_apple_y and head_y <= rand_apple_y + apple_thickness:
+                rand_apple_x = round(random.randrange(0, window_width - block_size)/block_size) * block_size
+                rand_apple_y = round(random.randrange(0, window_height - block_size)/block_size) * block_size
+                snake_lenght += 1
         clock.tick(difficulty)
 
     pygame.quit()
