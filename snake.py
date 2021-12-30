@@ -23,9 +23,15 @@ def snake(snake_list, block_size):
         pygame.draw.rect(screen, green, [XnY[0], XnY[1], block_size, block_size])
 
 
+def text_objects(text, color):
+    text_surface = font.render(text, True, color)
+    return text_surface, text_surface.get_rect()
+
+
 def massage_to_screen(msg, color):
-    screen_text = font.render(msg, True, color)
-    screen.blit(screen_text, [window_width / 2, window_height / 2])
+    text_surf, text_rect = text_objects(msg, color)
+    text_rect.center = (window_width / 2), (window_height / 2)
+    screen.blit(text_surf, text_rect)
 
 
 def game_loop():
