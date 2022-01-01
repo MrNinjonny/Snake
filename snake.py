@@ -16,7 +16,7 @@ screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption('Snake')
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 25)
-img = pygame.image.load('.\\pics\\snake_head.png')
+img = pygame.image.load('.\\pics\\snake head.png')
 
 def snake(snake_list, block_size):
     screen.blit(img, (snake_list[-1][0], snake_list[-1][1]))
