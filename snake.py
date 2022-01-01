@@ -10,16 +10,17 @@ window_size = (window_width, window_height)
 white = (255, 255, 255)
 black = (0, 0, 0)
 red = (255, 0, 0)
-green = (0, 155, 0)
+green = (0, 155, 00)
 
 screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption('Snake')
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 25)
-
+img = pygame.image.load('C:\\Users\\Jonathan\\PycharmProjects\\Snake\\pics\\snake_head.png')
 
 def snake(snake_list, block_size):
-    for XnY in snake_list:
+    screen.blit(img, (snake_list[-1][0], snake_list[-1][1]))
+    for XnY in snake_list[:-1]:
         pygame.draw.rect(screen, green, [XnY[0], XnY[1], block_size, block_size])
 
 
