@@ -38,9 +38,9 @@ def text_objects(text, color):
     return text_surface, text_surface.get_rect()
 
 
-def massage_to_screen(msg, color):
+def massage_to_screen(msg, color, y_change = 0):
     text_surf, text_rect = text_objects(msg, color)
-    text_rect.center = (window_width / 2), (window_height / 2)
+    text_rect.center = (window_width / 2), (window_height / 2) + y_change
     screen.blit(text_surf, text_rect)
 
 
@@ -66,7 +66,8 @@ def game_loop():
     while not game_exit:
         while game_over:
             screen.fill(white)
-            massage_to_screen("Game Over, press C to play again or Q to quit", red)
+            massage_to_screen("Game Over", red)
+            massage_to_screen("Press C to play again or Q to quit", green, 50)
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
