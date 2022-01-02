@@ -18,8 +18,17 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 25)
 img = pygame.image.load('.\\pics\\snake head.png')
 
-def snake(snake_list, block_size):
-    screen.blit(img, (snake_list[-1][0], snake_list[-1][1]))
+def snake(snake_list, block_size, direction):
+    if direction == "right":
+        head = pygame.transform.rotate(img, 270)
+    if direction == "left":
+        head = pygame.transform.rotate(img, 90)
+    if direction == "up":
+        head = img
+    if direction == "down":
+        head = pygame.transform.rotate(img, 180)
+
+    screen.blit(head, (snake_list[-1][0], snake_list[-1][1]))
     for XnY in snake_list[:-1]:
         pygame.draw.rect(screen, green, [XnY[0], XnY[1], block_size, block_size])
 
@@ -41,10 +50,11 @@ def game_loop():
     difficulty = 10
     block_size = 20
     apple_thickness = 30
+    direction = "right"
 
     head_x = window_width / 2
     head_y = window_height / 2
-    head_x_change = 0
+    head_x_change = block_size
     head_y_change = 0
 
     snake_list = []
@@ -76,15 +86,19 @@ def game_loop():
                 if event.key == pygame.K_LEFT:
                     head_x_change = -block_size
                     head_y_change = 0
+                    direction = "left"
                 elif event.key == pygame.K_RIGHT:
                     head_x_change = block_size
                     head_y_change = 0
+                    direction = "right"
                 elif event.key == pygame.K_UP:
                     head_y_change = -block_size
                     head_x_change = 0
+                    direction = "up"
                 elif event.key == pygame.K_DOWN:
                     head_y_change = block_size
                     head_x_change = 0
+                    direction = "down"
 
         if head_x > window_width:
             head_x = -block_size
@@ -110,7 +124,7 @@ def game_loop():
             if XnY == snake_head:
                 game_over = True
 
-        snake(snake_list, block_size)
+        snake(snake_list, block_size, direction)
         pygame.display.update()
 
         if rand_apple_x < head_x < rand_apple_x + apple_thickness or rand_apple_x < head_x + block_size < rand_apple_x + apple_thickness:
