@@ -34,6 +34,18 @@ def snake(snake_list, block_size, direction):
     for XnY in snake_list[:-1]:
         pygame.draw.rect(screen, green, [XnY[0], XnY[1], block_size, block_size])
 
+def game_intro():
+    intro = True
+    while intro:
+        screen.fill (white)
+        massage_to_screen("Welcome to Snake", green, -100, size="large")
+        massage_to_screen("The objective of the game is to eat red apples", black, -30)
+        massage_to_screen("The apples you eat, The longer you get", black, 10)
+        massage_to_screen("If you run in to yourself, You die!", black, 50)
+        massage_to_screen("Press C to play or Q to Quit", red , 180)
+        pygame.display.update()
+        clock.tick(15)
+        #for event in pygame.event.get():
 
 def text_objects(text, color, size):
     if size == "small":
@@ -146,5 +158,5 @@ def game_loop():
     pygame.quit()
     quit()
 
-
+game_intro()
 game_loop()
