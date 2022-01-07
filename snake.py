@@ -18,17 +18,18 @@ clock = pygame.time.Clock()
 small_font = pygame.font.SysFont("comicsansms", 25)
 med_font = pygame.font.SysFont("comicsansms", 50)
 large_font = pygame.font.SysFont("comicsansms", 80)
-img = pygame.image.load('.\\pics\\snake head.png')
+snale_img = pygame.image.load('.\\pics\\snake head.png')
+apple_img = pygame.image.load('.\\pics\\apple.png')
 
 def snake(snake_list, block_size, direction):
     if direction == "right":
-        head = pygame.transform.rotate(img, 270)
+        head = pygame.transform.rotate(snale_img, 270)
     if direction == "left":
-        head = pygame.transform.rotate(img, 90)
+        head = pygame.transform.rotate(snale_img, 90)
     if direction == "up":
-        head = img
+        head = snale_img
     if direction == "down":
-        head = pygame.transform.rotate(img, 180)
+        head = pygame.transform.rotate(snale_img, 180)
 
     screen.blit(head, (snake_list[-1][0], snake_list[-1][1]))
     for XnY in snake_list[:-1]:
@@ -66,12 +67,10 @@ def text_objects(text, color, size):
         text_surface = large_font.render(text, True, color)
     return text_surface, text_surface.get_rect()
 
-
 def massage_to_screen(msg, color, y_change = 0, size = "small"):
     text_surf, text_rect = text_objects(msg, color, size)
     text_rect.center = (window_width / 2), (window_height / 2) + y_change
     screen.blit(text_surf, text_rect)
-
 
 def game_loop():
     game_exit = False
@@ -143,16 +142,17 @@ def game_loop():
         head_y += head_y_change
 
         screen.fill(white)
-        pygame.draw.rect(screen, red, [rand_apple_x, rand_apple_y, apple_thickness, apple_thickness])
+        screen.blit(apple_img, (rand_apple_x, rand_apple_y))
 
         snake_head = [head_x, head_y]
         snake_list.append(snake_head)
-        if len(snake_list) > snake_length:
-            del snake_list[0]
 
         for XnY in snake_list[:-1]:
             if XnY == snake_head:
                 game_over = True
+
+        if len(snake_list) > snake_length:
+            del snake_list[0]
 
         snake(snake_list, block_size, direction)
         pygame.display.update()
