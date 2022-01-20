@@ -73,6 +73,10 @@ def massage_to_screen(msg, color, y_change = 0, size = "small"):
     text_rect.center = (window_width / 2), (window_height / 2) + y_change
     screen.blit(text_surf, text_rect)
 
+def score(score):
+    text = small_font.render("Score: " + str(score), True, black)
+    screen.blit(text, [0, 0])
+
 def game_loop():
     game_exit = False
     game_over = False
@@ -156,6 +160,7 @@ def game_loop():
             del snake_list[0]
 
         snake(snake_list, block_size, direction)
+        score(snake_length - 1)
         pygame.display.update()
 
         if rand_apple_x < head_x < rand_apple_x + apple_thickness or rand_apple_x < head_x + block_size < rand_apple_x + apple_thickness:
