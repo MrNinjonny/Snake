@@ -55,7 +55,7 @@ def game_intro():
         massage_to_screen("The objective of the game is to eat red apples", black, -30)
         massage_to_screen("The apples you eat, The longer you get", black, 10)
         massage_to_screen("If you run in to yourself, You die!", black, 50)
-        massage_to_screen("Press C to play or Q to Quit", red , 180)
+        massage_to_screen("Press C to play, P to pause or Q to Quit", red , 180)
         pygame.display.update()
         clock.tick(15)
 
@@ -76,6 +76,25 @@ def massage_to_screen(msg, color, y_change = 0, size = "small"):
 def score(score):
     text = small_font.render("Score: " + str(score), True, black)
     screen.blit(text, [0, 0])
+
+def pause():
+    pause = True
+    while pause:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    pygame.quit()
+                    quit()
+                if event.key == pygame.K_c:
+                    pause = False
+        screen.fill(white)
+        massage_to_screen("Paused", black, -100, size= "large")
+        massage_to_screen("Press C to continue or Q to quit", black, 25)
+        pygame.display.update()
+        clock.tick(10)
 
 def game_loop():
     game_exit = False
@@ -133,6 +152,8 @@ def game_loop():
                     head_y_change = block_size
                     head_x_change = 0
                     direction = "down"
+                elif event.key == pygame.K_p:
+                    pause()
 
         if head_x > window_width:
             head_x = -block_size
