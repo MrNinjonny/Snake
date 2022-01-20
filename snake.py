@@ -20,6 +20,7 @@ med_font = pygame.font.SysFont("comicsansms", 50)
 large_font = pygame.font.SysFont("comicsansms", 80)
 snale_img = pygame.image.load('.\\pics\\snake head.png')
 apple_img = pygame.image.load('.\\pics\\apple.png')
+pygame.display.set_icon(apple_img)
 
 def snake(snake_list, block_size, direction):
     if direction == "right":
